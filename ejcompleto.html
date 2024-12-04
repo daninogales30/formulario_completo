@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario</title>
+</head>
+
+<body>
+    <form action="#" method="post" enctype="multipart/form-data" onsubmit="return validacion(this)">
+        <fieldset>
+            <legend>Datos personales</legend>
+
+            <label>Nombre: <input type="text" name="nombre" id="nombre" />*</label>
+
+            <label>Primer apellido: <input type="text" name="papellido" id="papellido" />*</label>
+
+            <label>Segundo apellido: <input type="text" name="sapellido" id="sapellido" />*</label><br><br>
+
+            <label>Dirección: <input type="text" name="direccion" id="direccion" placeholder="calle o plaza, número y piso."/></label><br><br>
+
+            <label>Telefono: <input type="tel" name="telefono" id="telefono" placeholder="123 33 33 33" />*</label><br><br>
+
+            <label>E-mail: <input type="email" name="email" id="email" placeholder="ejemplo@ejemplo.com"  />*</label><br><br>
+
+            <label>Contraseña: <input type="password" name="password" id="password"  />*</label><br><br>
+
+            <div>Sexo: </div>
+            <label>
+                <input type="radio" id="varon" name="genero" value="varon">
+                Varón
+            </label><br>
+
+            <label>
+                <input type="radio" id="mujer" name="genero" value="mujer">
+                Mujer
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Nivel de estudios e intereses</legend>
+
+            <div>Nivel de estudios: </div>
+
+            <label>
+                <input type="radio" name="nivelestudios" id="certificadoescolar" value="certificadoescolar">
+                Certificado escolar
+            </label><br>
+
+            <label>
+                <input type="radio" name="nivelestudios" id="eso" value="eso">
+                Graduado en eso
+            </label><br>
+
+            <label>
+                <input type="radio" name="nivelestudios" id="bachillerfp" value="bachillerfp">
+                Bachiller - Formación Profesional
+            </label><br>
+
+            <label>
+                <input type="radio" name="nivelestudios" id="diplomado" value="diplomado">
+                Diplomado
+            </label><br>
+
+            <label>
+                <input type="radio" name="nivelestudios" id="licenciadoodoctorado" value="licenciadoodoctorado">
+                Licenciado o Doctorado
+            </label><br><br>
+
+            <div>Recibir articulos sobre los siguientes temas: </div>
+
+            <label>
+                <input type="checkbox" name="articulos" id="musica" value="musica">
+                Música
+            </label><br>
+
+            <label>
+                <input type="checkbox" name="articulos" id="deporte" value="deporte">
+                Deporte
+            </label><br>
+
+            <label>
+                <input type="checkbox" name="articulos" id="cine" value="cine">
+                Cine
+            </label><br>
+
+            <label>
+                <input type="checkbox" name="articulos" id="libros" value="libros">
+                Libros
+            </label><br>
+
+            <label>
+                <input type="checkbox" name="articulos" id="ciencia" value="ciencia">
+                Ciencia
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Datos sobre la revista</legend>
+
+            <label>Frecuencia con la que se recibirá la revista: <br>
+                <select name="frecuencia" id="frecuencia">
+                    <option value="semanal">Semanal</option>
+                    <option value="mensual">Mensual</option>
+                    <option value="anual">Anual</option>
+                </select>
+            </label><br>
+
+
+            <p>Puedes mandar tu articulo sobre cualquier tema que tratamos. Nosotros lo valoraremos para que pueda ser
+                publicado.</p>
+
+            <label>Mandar articulo: <input type="file"></label><br><br>
+
+            <label>Si deseas mandar tu opinion o simplemente un comentario escribelo aquí: <br>
+                <textarea name="comentario" id="comentario" placeholder="Escribe tu comentario..." cols="50" rows="5"></textarea>
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Comenzar de nuevo</legend>
+            <p>Borrar todos los datos del formulario y volver a empezar:</p>
+            <button type="reset">Borrar Todo</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Enviar</legend>
+            <p>Enviar formulario por correo electrónico: Al pulsar el boton se abrirá la página de envio de correo: en esa página pulsa enviar:</p>
+            <button type="submit">Enviar por Correo</button>
+        </fieldset>
+    </form>
+</body>
+
+<script>
+    function validacion(form){
+        let nombre = form.nombre.value;
+        let primerApellido = form.papellido.value;
+        let segundoApellido = form.sapellido.value;
+        let direccion = form.direccion.value;
+        let telefono = form.telefono.value;
+        let email = form.email.value;
+        let contraseña = form.password.value;
+        let comentario = form.comentario.value;
+        let errores = "";
+        let primerError = null;
+
+        let expRegCorreo = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/;
+        let expRegNombreapellidos = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]+$/;
+        let expRegTelefono = /^[6789]\d{2} \d{2} \d{2} \d{2}$/;
+        let expRegContraseña = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,12}$/;
+
+        if(nombre == ""){
+            errores = errores + "- El nombre no debe estar vacío";
+            if (!primerError) primerError = form.nombre;
+        } else if(!expRegNombreapellidos.test(nombre)){
+            errores = errores + "- El nombre no cumple con el patrón que necesita";
+            if (!primerError) primerError = form.nombre;
+        }
+
+        if(primerApellido == ""){
+            errores = errores + "\n- El primer apellido no debe estar vacío";
+            if (!primerError) primerError = form.papellido;
+        } else if(!expRegNombreapellidos.test(primerApellido)){
+            errores = errores + "\n- El primer apellido no cumple con el patrón que necesita";
+            if (!primerError) primerError = form.papellido;
+        }
+
+        if(segundoApellido == ""){
+            errores = errores + "\n- El segundo apellido no debe estar vacío";
+            if (!primerError) primerError = form.sapellido;
+        } else if(!expRegNombreapellidos.test(segundoApellido)){
+            errores = errores + "\n- El segundo apellido no cumple con el patrón que necesita";
+            if (!primerError) primerError = form.sapellido;
+        }
+
+        if(telefono == ""){
+            errores = errores + "\n- El teléfono no debe estar vacío";
+            if (!primerError) primerError = form.telefono;
+        } else if(!expRegTelefono.test(telefono)){
+            errores = errores + "\n- El teléfono no cumple el patrón";
+            if (!primerError) primerError = form.telefono;
+        }
+
+        if(email == ""){
+            errores = errores + "\n- El email no debe estar vacío";
+            if (!primerError) primerError = form.email;
+        } else if(!expRegCorreo.test(email)){
+            errores = errores + "\n- El correo electrónico no es válido";
+            if (!primerError) primerError = form.email;
+        }
+
+        if(contraseña == ""){
+            errores = errores + "\n- La contraseña no debe estar vacía";
+            if (!primerError) primerError = form.password;
+        } else if(!expRegContraseña.test(contraseña)){
+            errores = errores + "\n- La contraseña debe tener entre 8 y 12 caracteres, una letra mayúscula y un número";
+            if (!primerError) primerError = form.password;
+        }
+
+        if(errores != ""){
+            alert(errores);
+            if (primerError) primerError.focus();
+            return false;
+        }
+
+        alert("Datos enviados correctamente");
+        return true;
+    }
+</script>
+
+</html>
